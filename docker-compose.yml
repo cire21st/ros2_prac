@@ -1,0 +1,16 @@
+# services: 생성될 컨테이너들을 모아둔 단위, 이 아래는 각 컨테이너에 적용될 옵션들을 지정
+services:
+# 컴퓨터 내부에서 구분하는 container 이름 (저는 test로 작성했습니다)
+  test:
+# Dockerfile의 위치. 아래는 빌드할 Dockerfile이 현재 디렉토리(폴더)에 있다는 것을 알려줌
+    build: .		
+# 사용자에게 보이는 container 이름 (저는 test로 작성했습니다)
+    container_name: test
+# 내 호스트 안에 있는 폴더와 도커 컨테이너 안에 있는 폴더를 연결
+# :를 기준으로 Host PC의 "./workspace"와 Container의 "/workspace"를 연결, /dev와 /dev을 연결
+# 폴더끼리 연결을 해두면 폴더끼리 동기화 되어있어서 컨테이너를 없앴을 때 수정사항은 호스트 폴더에 그대로 남아있다.
+    volumes:
+      - ./workspace:/workspace
+      - /dev:/dev	
+# 도커 컨테이너가 소속된 네트워크. 아래는 호스트가 소속된 네트워크를 그대로 사용함
+    network_mode : "host"
